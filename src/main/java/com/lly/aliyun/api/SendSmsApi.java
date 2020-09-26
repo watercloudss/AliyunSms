@@ -1,6 +1,7 @@
 package com.lly.aliyun.api;
 
 import com.lly.aliyun.service.AliyunSendSmsService;
+import com.lly.aliyun.utils.NumberUtil;
 import com.lly.aliyun.utils.Result;
 import com.lly.aliyun.utils.ResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class SendSmsApi {
     @Autowired
+    private NumberUtil numberUtil;
+    @Autowired
     private AliyunSendSmsService aliyunSendSmsService;
 
     @GetMapping("/sms/verification/{phone}")
     public Result  sendVerificationSms(@PathVariable String phone){
+        if(!numberUtil.isPhone(phone)){
+            return ResultGenerator.genFailResult("手机号码有误！");
+        }
         return ResultGenerator.genSuccessResult(aliyunSendSmsService.sendVerificationCode(phone).getName());
     }
 
