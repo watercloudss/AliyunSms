@@ -84,7 +84,7 @@ public class AsyncSendAliyunSmsService {
 
     @Async("sendsms")
     public CompletableFuture<JSONArray> getDateOfVerificationInfo(String CurrentPage, String PageSize, String SendDate, String PhoneNumber) {
-        log.info("do findsms: {}", PhoneNumber);
+        log.info("do findsms: {}", new Date());
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", aliyunSmsConfig.getAccessKeyId(), aliyunSmsConfig.getAccessSecret());
         IAcsClient client = new DefaultAcsClient(profile);
 
@@ -94,13 +94,12 @@ public class AsyncSendAliyunSmsService {
         request.setSysVersion("2017-05-25");
         request.setSysAction("QuerySendDetails");
         request.putQueryParameter("RegionId", "cn-hangzhou");
-        request.putQueryParameter("PhoneNumber","15618443335");
-        request.putQueryParameter("SendDate","20200929");
-        request.putQueryParameter("CurrentPage","1");
-        request.putQueryParameter("PageSize","10");
+        request.putQueryParameter("PhoneNumber",PhoneNumber);
+        request.putQueryParameter("SendDate",SendDate);
+        request.putQueryParameter("CurrentPage",CurrentPage);
+        request.putQueryParameter("PageSize",PageSize);
         try {
             CommonResponse response = client.getCommonResponse(request);
-            System.out.println(response.getData());
             if(response.getHttpResponse().isSuccess()){
                 JSONObject jsonObject = JSON.parseObject(response.getData());
                 JSONObject SmsSendDetailDTOs = jsonObject.getJSONObject("SmsSendDetailDTOs");
@@ -121,9 +120,18 @@ public class AsyncSendAliyunSmsService {
     //模拟一个耗时操作
     @Async("findsms")
     public CompletableFuture<String> doSomething(String message) throws InterruptedException {
-        log.info("do something: {}", message);
+        log.info("do something: {}", new Date());
         TimeUnit.SECONDS.sleep(3);
         log.info("doSomething完毕！{}"+new Date());
+        return CompletableFuture.completedFuture("do something: " + message);
+    }
+
+    //模拟一个耗时操作
+    @Async("findsms")
+    public CompletableFuture<String> doSomething1(String message) throws InterruptedException {
+        log.info("do something1: {}", new Date());
+        TimeUnit.SECONDS.sleep(5);
+        log.info("doSomething1完毕！{}"+new Date());
         return CompletableFuture.completedFuture("do something: " + message);
     }
 
