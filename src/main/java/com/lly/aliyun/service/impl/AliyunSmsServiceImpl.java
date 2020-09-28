@@ -52,8 +52,8 @@ public class AliyunSmsServiceImpl implements AliyunSendSmsService {
     }
 
     @Override
-    public String getDateOfVerificationInfo(String CurrentPage, String PageSize, String SendDate, String PhoneNumber) throws InterruptedException, ExecutionException {
-        CompletableFuture<String> result = asyncSendAliyunSmsService.getDateOfVerificationInfo(PageSize,PageSize,SendDate,PhoneNumber);
+    public JSONArray getDateOfVerificationInfo(String CurrentPage, String PageSize, String SendDate, String PhoneNumber) throws InterruptedException, ExecutionException {
+        CompletableFuture<JSONArray> result = asyncSendAliyunSmsService.getDateOfVerificationInfo(PageSize,PageSize,SendDate,PhoneNumber);
         CompletableFuture<String> message = asyncSendAliyunSmsService.doSomething("oh shit!");
         CompletableFuture.allOf(result,message).join();// 等待所有任务都执行完
         return result.get();

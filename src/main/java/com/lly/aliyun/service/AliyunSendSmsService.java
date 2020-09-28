@@ -14,5 +14,5 @@ import java.util.concurrent.ExecutionException;
  */
 public interface AliyunSendSmsService {
      VerificationSendStatusEnum sendVerificationCode(String phone) throws ExecutionException, InterruptedException;
-     String getDateOfVerificationInfo(String CurrentPage, String PageSize, String SendDate, String PhoneNumber) throws InterruptedException, ExecutionException;
+     JSONArray getDateOfVerificationInfo(String CurrentPage, String PageSize, String SendDate, String PhoneNumber) throws InterruptedException, ExecutionException;
 }

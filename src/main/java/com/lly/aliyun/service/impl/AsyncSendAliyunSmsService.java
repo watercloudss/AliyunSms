@@ -83,7 +83,7 @@ public class AsyncSendAliyunSmsService {
     }
 
     @Async("sendsms")
-    public CompletableFuture<String> getDateOfVerificationInfo(String CurrentPage, String PageSize, String SendDate, String PhoneNumber) {
+    public CompletableFuture<JSONArray> getDateOfVerificationInfo(String CurrentPage, String PageSize, String SendDate, String PhoneNumber) {
         log.info("do findsms: {}", PhoneNumber);
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", aliyunSmsConfig.getAccessKeyId(), aliyunSmsConfig.getAccessSecret());
         IAcsClient client = new DefaultAcsClient(profile);
@@ -94,10 +94,10 @@ public class AsyncSendAliyunSmsService {
         request.setSysVersion("2017-05-25");
         request.setSysAction("QuerySendDetails");
         request.putQueryParameter("RegionId", "cn-hangzhou");
-        request.putQueryParameter("PhoneNumber",PhoneNumber);
-        request.putQueryParameter("SendDate",SendDate);
-        request.putQueryParameter("CurrentPage",CurrentPage);
-        request.putQueryParameter("PageSize",PageSize);
+        request.putQueryParameter("PhoneNumber","15618443335");
+        request.putQueryParameter("SendDate","20200929");
+        request.putQueryParameter("CurrentPage","1");
+        request.putQueryParameter("PageSize","10");
         try {
             CommonResponse response = client.getCommonResponse(request);
             System.out.println(response.getData());
@@ -106,7 +106,7 @@ public class AsyncSendAliyunSmsService {
                 JSONObject SmsSendDetailDTOs = jsonObject.getJSONObject("SmsSendDetailDTOs");
                 JSONArray SmsSendDetailDTO = SmsSendDetailDTOs.getJSONArray("SmsSendDetailDTO");
                 log.info("信息查询完毕！{}"+new Date());
-                return CompletableFuture.completedFuture("SmsSendDetailDTO");
+                return CompletableFuture.completedFuture(SmsSendDetailDTO);
             }else{
                 return CompletableFuture.completedFuture(null);
             }
