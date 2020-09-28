@@ -5,6 +5,7 @@ import com.lly.aliyun.entity.VerificationSendStatusEnum;
 import com.sun.org.apache.bcel.internal.classfile.Code;
 
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @Author: lly
@@ -12,7 +13,6 @@ import java.util.Map;
  * @Description:
  */
 public interface AliyunSendSmsService {
-     VerificationSendStatusEnum sendVerificationCode(String phone);
-     JSONArray getDateOfVerificationInfo(String CurrentPage, String PageSize, String SendDate, String PhoneNumber);
-     boolean sendSms(String phone, String templateCode, Map<String,Object> code);
+     VerificationSendStatusEnum sendVerificationCode(String phone) throws ExecutionException, InterruptedException;
+     String getDateOfVerificationInfo(String CurrentPage, String PageSize, String SendDate, String PhoneNumber) throws InterruptedException, ExecutionException;
 }
