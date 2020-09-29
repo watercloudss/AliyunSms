@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 @EnableAsync
 public class AsyncConfig {
-    @Bean("sendsms")
+    @Bean("cpu")
     public Executor sendsmsExecutor(){
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 核心线程数：线程池创建时候初始化的线程数
@@ -35,7 +35,7 @@ public class AsyncConfig {
         return executor;
     }
 
-    @Bean("findsms")
+    @Bean("io")
     public Executor findsmsExecutor(){
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 核心线程数：线程池创建时候初始化的线程数

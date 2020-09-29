@@ -48,7 +48,7 @@ public class AsyncSendAliyunSmsService {
 //    SpringBoot应用中没有添加@EnableAsync注解；
 //    在同一个类中，一个方法调用另外一个有@Async注解的方法，注解不会生效。原因是@Async注解的方法，是在代理类中执行的。
 
-    @Async("sendsms")
+    @Async("io")
     public CompletableFuture<Boolean> sendSms(String phone, String templateCode){
         String verificationCode =  codeUtil.getCode();
         Map<String, Object> templateParam = new HashMap<>();
@@ -82,7 +82,7 @@ public class AsyncSendAliyunSmsService {
         }
     }
 
-    @Async("sendsms")
+    @Async("io")
     public CompletableFuture<JSONArray> getDateOfVerificationInfo(String CurrentPage, String PageSize, String SendDate, String PhoneNumber) {
         log.info("do findsms: {}", new Date());
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", aliyunSmsConfig.getAccessKeyId(), aliyunSmsConfig.getAccessSecret());
@@ -118,7 +118,7 @@ public class AsyncSendAliyunSmsService {
     }
 
     //模拟一个耗时操作
-    @Async("findsms")
+    @Async("cpu")
     public CompletableFuture<String> doSomething(String message) throws InterruptedException {
         log.info("do something: {}", new Date());
         TimeUnit.SECONDS.sleep(3);
@@ -127,7 +127,7 @@ public class AsyncSendAliyunSmsService {
     }
 
     //模拟一个耗时操作
-    @Async("findsms")
+    @Async("cpu")
     public CompletableFuture<String> doSomething1(String message) throws InterruptedException {
         log.info("do something1: {}", new Date());
         TimeUnit.SECONDS.sleep(5);
