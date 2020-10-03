@@ -35,7 +35,7 @@ class AliyunSmsApplicationTests {
         request.setSysVersion("2017-05-25");
         request.setSysAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
-        request.putQueryParameter("PhoneNumbers","15618443335");
+        request.putQueryParameter("PhoneNumbers","15613432435");
         request.putQueryParameter("SignName","轻云商城");
         request.putQueryParameter("TemplateCode","SMS_203670789");
         request.putQueryParameter("TemplateParam","{\"code\":\"1111\"}");
@@ -59,7 +59,7 @@ class AliyunSmsApplicationTests {
         request.setSysVersion("2017-05-25");
         request.setSysAction("QuerySendDetails");
         request.putQueryParameter("RegionId", "cn-hangzhou");
-        request.putQueryParameter("PhoneNumber","15618443335");
+        request.putQueryParameter("PhoneNumber","15618745435");
         request.putQueryParameter("SendDate","20200926");
         request.putQueryParameter("CurrentPage","1");
         request.putQueryParameter("PageSize","10");
